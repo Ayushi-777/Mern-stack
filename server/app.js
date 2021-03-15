@@ -2,7 +2,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const app = express();
 
-const DB = '';
+const DB =  'mongodb+srv://ayushi:ayushi@cluster0.rj2fp.mongodb.net/mernstacks?retryWrites=true&w=majority';
 mongoose.connect(DB, {
     useNewUrlParser:true,
     useCreateIndex:true,
@@ -14,12 +14,13 @@ mongoose.connect(DB, {
 
 const middleware =(req,res,next) => {
     console.log('hello my middleware');
-    next;
+    next();
 }
 app.get('/',(req,res) => {
     res.send('Hello world from the server');
 });
 app.get('/about',middleware, (req,res) => {
+    console.log('hello my about');
     res.send('Hello world from the abouts');
 });
 app.get('/register',(req,res) => {
@@ -28,3 +29,6 @@ app.get('/register',(req,res) => {
 app.get('/contact',(req,res) => {
     res.send('Hello world from the contact');
 });
+ app.listen(3000, () =>{
+     console.log('server is running at port no 3000');
+ })   
