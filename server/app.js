@@ -1,8 +1,11 @@
 const express = require('express');
+const dotenv = require('dotenv');
 const mongoose = require('mongoose');
 const app = express();
 
-const DB =  'mongodb+srv://ayushi:ayushi@cluster0.rj2fp.mongodb.net/mernstacks?retryWrites=true&w=majority';
+dotenv.config({path:'./config.env'});
+const DB = process.env.DATABASE;
+
 mongoose.connect(DB, {
     useNewUrlParser:true,
     useCreateIndex:true,
@@ -21,7 +24,7 @@ app.get('/',(req,res) => {
 });
 app.get('/about',middleware, (req,res) => {
     console.log('hello my about');
-    res.send('Hello world from the abouts');
+    res.send('Hello world from the about');
 });
 app.get('/register',(req,res) => {
     res.send('Hello world from the register');
