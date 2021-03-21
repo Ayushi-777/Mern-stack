@@ -7,7 +7,7 @@ const app = express();
 dotenv.config({path:'./config.env'});
 
 //db connection require
-require('./db/conn');
+//require('./db/conn');
 //const user = require('./models/userSchema');
 
 app.use(express.json());
