@@ -1,6 +1,8 @@
 const express = require('express');
+const { prependListener } = require('../models/userSchema');
 const router = express.Router();
-
+const bcrypt =require('bcryptjs');
+const jwt = require('jsonwebtoken');
 //db connection require
 require('../db/conn');
 const user = require('../models/userSchema');
@@ -18,7 +20,11 @@ router.get('/',(req,res) => {
 router.get('/about',middleware, (req,res) => {
     console.log('hello my about');
     res.send('Hello world from the about');
-});4
+});
+router.get('/contact',(req,res) => {
+ res.cookie("test",'ayushi');
+    res.send('Hello world from the contact');
+});
 router.get('/register',(req,res) => {
     res.send('Hello world from the register');
 });
@@ -62,9 +68,11 @@ router.post('/register', async (req,res) => {
 
         if(userexcits){
             return res.status(422).json({error:"email already exists"});
+        }else if(password!=cpassword){
+            return res.status(422).json({error:"password not matched"}); 
         }
         const users = new user({name ,email, phone, work, password, cpassword});
-      await users.save();
+        await users.save();
 
         res.status(201).json({message:"user registered successful"});
     }catch (err){
@@ -77,19 +85,34 @@ router.post('/register', async (req,res) => {
 
 
 router.post('/login',async (req,res) => {
+    try{
+        let token;
     const {email,password}=req.body;
+
     if(!email || !password){
         return res.status(422).json({error:"pls fill all field"});
     }
-    try{
-    const userexcit = await user.findOne({email : email, password : password});
-    console.log(userexcit);
-    if(userexcit){
+    
+    const userLogin = await user.findOne({email : email});
+
+     if(userLogin){
+        const isMatch = await bcrypt.compare(password,userLogin.password);
+     //token
+     token = await userLogin.generateAuthToken();
+     console.log(token);
+     res.cookie("jwtoken",token,{
+         expires:new Date(Date.now() + 25892000000),
+         httpOnly:true
+     })
+
+    if(isMatch){
         return res.status(422).json({message:"loging succesfully"});
         
+    }else{
+        return res.status(400).json({error:"invaild details"});
     }
-        return res.status(400).json({error:"invaild"});
 }
+    }
     catch(err){
         console.log(err);
     }
