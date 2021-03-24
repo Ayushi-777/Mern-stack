@@ -64,3 +64,12 @@ userSchema.methods.generateAuthToken = async function(){
 
 const user = mongoose.model('USER',userSchema);
 module.exports = user;
+
+
+
+
+
+
+
+
+
