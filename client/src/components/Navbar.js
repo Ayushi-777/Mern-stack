@@ -4,8 +4,8 @@ import {NavLink} from 'react-router-dom';
 const Navbar = () => {
     return (
         <div>
-           <nav class="navbar navbar-expand-lg navbar-light bg-light">
-  <a className="navbar-brand" href="#">CodeByAyushi</a>
+           <nav class="navbar navbar-expand-lg navbar-dark bg-info">
+  <NavLink className="navbar-brand" href="#"> codebyayushi</NavLink>
   <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
     <span className="navbar-toggler-icon"></span>
   </button>
