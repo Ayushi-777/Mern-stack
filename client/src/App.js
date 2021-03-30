@@ -1,5 +1,5 @@
 import React from 'react'
-import "./App.css"
+import "./App.css";
 import {Route} from 'react-router-dom';
 import Navbar from "./components/Navbar";
 import Home from "./components/Home";
@@ -13,7 +13,7 @@ const App = () => {
     <div>
        <Navbar/>
 
-    <Route path="/">
+    <Route path="/home">
     <Home/>
     </Route>
 
