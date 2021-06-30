@@ -1,21 +1,13 @@
 const express = require('express');
-const dotenv = require('dotenv');
-const mongoose = require('mongoose');
 const app = express();
-
-
-//hide data code here
-dotenv.config({path:'./config.env'});
-
-//db connection require
-//require('./db/conn');
-//const user = require('./models/userSchema');
+const cors = require('cors');
+require('./db/conn');
+// const user = require('./models/userSchema');
 
 app.use(express.json());
-//hide port number
-const PORT = process.env.PORT;
+app.use(cors());
+const PORT = process.env.PROCESS || 5000;
 
-//link the router files to make our  route easy
 app.use(require('./router/auth'));
 
 app.listen(PORT, () =>{

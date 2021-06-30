@@ -1,10 +1,11 @@
-const mongoose = require('mongoose');
-const DB = process.env.DATABASE;
-mongoose.connect(DB, {
+const mongoose= require('mongoose');
+mongoose.connect("mongodb://localhost:27017/Course",{
     useNewUrlParser:true,
-    useCreateIndex:true,
     useUnifiedTopology:true,
-    useFindAndModify:false
+    useCreateIndex:true
 }).then(() => {
-    console.log('connection successfully');
-}).catch((err) => console.log('no connection'));
+    console.log(`Connection successful`);
+}).catch((e) => {
+    console.log(`no connection`);
+});
+
